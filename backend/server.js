@@ -1,18 +1,23 @@
-const express= require('express')
-const {chats}= require("./data/data")
-const dotenv= require("dotenv")
+const express = require('express');
+const dotenv = require("dotenv");
+const mongoose= require('mongoose');
+
+// Define the chats array
+const { chats } = require("./data/data");
 
 const app = express();
 dotenv.config();
 
-
-app.get('/',(req,res)=>{
-    res.send("API Running")
+app.get('/', (req, res) => {
+    res.send("API Running");
+});
+app.get('/api/chat', (req, res) => {
+    res.send(chats);
 });
 
-app.get('/api/chat', (req,res)=>{
-    res.send(chats);
-})
 
-const PORT= process.env.PORT||5000
-app.listen(5000,console.log("started at port 5000"))
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+});
+
