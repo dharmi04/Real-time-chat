@@ -65,10 +65,10 @@ const Signup = () => {
                         accept= "image/*" onChange={(e)=> postDetails(e.target.files[0])} />
                     </FormControl>
 
-                    <Button colorScheme="white"
+                    <Button colorScheme="black"
                     width="100%"
                     style={{marginTop:15}}
-                    onClick={submitHandler}>SignUp</Button>
+                    onClick={submitHandler} >SignUp</Button>
         
             </VStack>
         </div>
