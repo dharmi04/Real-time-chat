@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Stack, HStack, VStack, Box, StackDivider, FormControl, FormLabel, Input, InputGroup, InputRightElement, Button } from '@chakra-ui/react'
+import { Stack, HStack, VStack, Box, StackDivider, FormControl, FormLabel, Input, InputGroup, InputRightElement, Button, useToast } from '@chakra-ui/react'
 
 
 const Signup = () => {
@@ -10,12 +10,31 @@ const Signup = () => {
     const [password, setPassword] = useState()
     const [confirmpassword, setConfirmpassword] = useState()
     const [pic, seiPic] = useState()
-
+    const [loading, setLoading]= useState(false)
+    const toast= useToast();
     const handleClick = () => setShow(!show)
 
     const submitHandler=()=>{}
 
-    const postDetails=()=>{};
+    const postDetails=(pics)=>{
+        setLoading(true);
+        if(pic===undefined){
+            toast({
+                title: "Please select a profile picture",
+                status:"warning",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom",
+              });
+              return; 
+          }
+          if(pics.type==="image./jpeg" || pics.type==="image/png" ){
+            const data = new FormData();
+            data.append("file", pics);
+            data.append("upload_preset", "chat-app");
+            data.append("cloud_name", anem)
+          }
+    };
 
     return (
         <div>

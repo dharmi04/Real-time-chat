@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler")
-
+const User= require('../models/UserModel')
+const generateToken = require('../config/generateToken')
 
 const registerUser = asyncHandler (async(req,res) =>{
     const {name,email,password,pic} = req.body;
@@ -17,19 +18,20 @@ const registerUser = asyncHandler (async(req,res) =>{
         throw new Error ('Email already in use')
     }
     // create and save a user 
-    const User = await User.create({
+    const user = await User.create({
         name,
         email,
         password,
         pic,
     });
 
-    if(user){
+    if(user && (await user.matchPassword(password))){
         res.status(201).json({
             _id: user._id,
             name: user.name,
             email: user.email,
-            pic:user.pic
+            pic:user.pic,
+            token: generateToken(user._id),
 
         })
     } else{
@@ -37,6 +39,26 @@ const registerUser = asyncHandler (async(req,res) =>{
         throw new Error("Failed to find user");
     }
     
-})
+});
 
-module.exports= {registerUser}
+
+const authUser= asyncHandler(async(req,res)=>{
+    const {email, password} = req.body
+
+    const user = await User.findOne({email});
+
+    if(user){
+        res.status(200).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            pic: user.pic,
+            token: generateToken(user._id),
+        })       
+    }else{
+        res.status(401);
+        throw new Error ("Invalid Email or Password")
+    }
+});
+
+module.exports= {registerUser, authUser}

@@ -2,18 +2,22 @@ const express = require('express');
 const dotenv = require("dotenv");
 const mongoose= require('mongoose');
 const connectDB = require('./config/db');
-const userRoutes = require("./outes/userRoutes");
+const userRoutes = require("./routes/userRoutes");
+const {notFound, errorHandler} = require('./middlewares/errorMiddleware')
 
 
-// Define the chats array
-const { chats } = require("./data/data");
 
 
 const app = express();
 connectDB()
+
+app.use(express.json)
 dotenv.config();
 
 app.use('/api/user', userRoutes)
+
+app.use(notFound)
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
