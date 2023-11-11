@@ -25,7 +25,7 @@ const Homepage = () => {
           </TabList>
           <TabPanels>
             <TabPanel> <Signup />   </TabPanel>
-            <TabPanel>  <Login/></TabPanel>
+            <TabPanel>  <Login/> </TabPanel>
           </TabPanels>
         </Tabs>
       </Box>

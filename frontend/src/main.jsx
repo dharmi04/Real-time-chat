@@ -1,16 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter
+import { BrowserRouter } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
+import { createRoot } from 'react-dom/client'; // Import createRoot from 'react-dom/client'
+
 import App from './App';
-import { ChakraProvider } from '@chakra-ui/react'
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root'));
+
+root.render(
   <BrowserRouter>
-  <ChakraProvider>
-  <App />
-  </ChakraProvider>
-    
-  </BrowserRouter>,
-  document.getElementById('root')
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
+  </BrowserRouter>
 );
-
